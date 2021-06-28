@@ -21,7 +21,7 @@ function Video(){
     
     const myPeer = new Peer({host:'localhost', port:9000, path: '/myapp'})
 navigator.mediaDevices.getUserMedia({
-    video: true,
+    video: false,
     audio: true
 }).then(stream => {
    

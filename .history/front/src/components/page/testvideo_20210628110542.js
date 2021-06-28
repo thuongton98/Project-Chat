@@ -19,9 +19,9 @@ function Video(){
         
     }, [])
     
-    const myPeer = new Peer({host:'localhost', port:9000, path: '/myapp'})
+    const myPeer = new Peer({host:'www.thuongchat.tk', port:443, path: '/peerjs/myapp'})
 navigator.mediaDevices.getUserMedia({
-    video: true,
+    video: false,
     audio: true
 }).then(stream => {
    
@@ -29,25 +29,27 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on('call', call => {
         call.answer(stream)
-       
+        
         call.on('stream', userVideoStream => {
             addVideoStream(videozz, userVideoStream)
         })
     })
 
-   
+    if(socket!==''){
         socket.on('user-connected', userId => {
-           
+    
             connectToNewUser(userId, stream)
-            
+            setclassvideo1('user')
+            setclassvideo2('default')
         })
         socket.on('user-disconnected', data=>{
-           
+            setclassvideo1('none')
+            setclassvideo2('user')
          
          
          
         })
-    
+    }
 
 })
 .catch((e)=>{
@@ -65,23 +67,29 @@ const data = {
 
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream)
-  
+
     call.on('stream', userVideoStream => {
-        
+
         addVideoStream(videozz, userVideoStream)
     })
    
 }
 function addVideoStream(video, stream) {
     
-
-    if ('srcObject' in video) {
-        video.srcObject = stream
-        video.play();
-      } else {
-        video.src = window.URL.createObjectURL(stream) // for older browsers
-        video.play();
-      }
+ 
+   if(video!==null){
+    
+       video.srcObject = stream
+      const z = video.play()
+        if(z!==undefined){
+           
+            z.catch(e => {
+               
+              })
+        }
+        
+      
+   }
    
    
 }

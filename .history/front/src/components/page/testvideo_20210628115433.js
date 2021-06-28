@@ -19,7 +19,7 @@ function Video(){
         
     }, [])
     
-    const myPeer = new Peer({host:'localhost', port:9000, path: '/myapp'})
+    const myPeer = new Peer({host:'thuongchat.tk', port:443, path: '/peerjs/myapp'})
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
@@ -29,7 +29,7 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on('call', call => {
         call.answer(stream)
-       
+        
         call.on('stream', userVideoStream => {
             addVideoStream(videozz, userVideoStream)
         })
@@ -37,7 +37,7 @@ navigator.mediaDevices.getUserMedia({
 
    
         socket.on('user-connected', userId => {
-           
+    
             connectToNewUser(userId, stream)
             
         })
@@ -65,16 +65,16 @@ const data = {
 
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream)
-  
+
     call.on('stream', userVideoStream => {
-        
+
         addVideoStream(videozz, userVideoStream)
     })
    
 }
 function addVideoStream(video, stream) {
     
-
+ 
     if ('srcObject' in video) {
         video.srcObject = stream
         video.play();

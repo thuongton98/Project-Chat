@@ -19,9 +19,9 @@ function Video(){
         
     }, [])
     
-    const myPeer = new Peer({host:'localhost', port:9000, path: '/myapp'})
+    const myPeer = new Peer({host:'thuongchat.tk',secure: true, port:443, path: '/peerjs/myapp'})
 navigator.mediaDevices.getUserMedia({
-    video: true,
+    video: false,
     audio: true
 }).then(stream => {
    
@@ -29,29 +29,28 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on('call', call => {
         call.answer(stream)
-       
+        
         call.on('stream', userVideoStream => {
             addVideoStream(videozz, userVideoStream)
         })
     })
 
-   
+    if(socket!==''){
         socket.on('user-connected', userId => {
-           
+    
             connectToNewUser(userId, stream)
-            
+            setclassvideo1('user')
+            setclassvideo2('default')
         })
         socket.on('user-disconnected', data=>{
-           
+            setclassvideo1('none')
+            setclassvideo2('user')
          
          
          
         })
-    
+    }
 
-})
-.catch((e)=>{
-  
 })
 myPeer.on('open', id => {
 const data = {
@@ -65,31 +64,37 @@ const data = {
 
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream)
-  
+
     call.on('stream', userVideoStream => {
-        
+
         addVideoStream(videozz, userVideoStream)
     })
    
 }
 function addVideoStream(video, stream) {
     
-
+ 
+   if(video!==null){
     if ('srcObject' in video) {
-        video.srcObject = stream
-        video.play();
-      } else {
-        video.src = window.URL.createObjectURL(stream) // for older browsers
-        video.play();
-      }
+       video.srcObject = stream
+      const z = video.play()
+        if(z!==undefined){
+           
+            z.catch(e => {
+               
+              })
+        }
+        
+      } 
+   }
    
    
 }
     return(
         <section className="p404">
         <h1>test video</h1>
-        <video className='video' autoPlay playsInline ref={ref=>videoz=ref} ></video>
-        <video className='video' autoPlay playsInline ref={ref=>videozz=ref}></video>
+        <video className={'video '+classvideo2} autoPlay playsInline ref={ref=>videoz=ref} ></video>
+        <video className={'video '+classvideo1} autoPlay playsInline ref={ref=>videozz=ref}></video>
       </section>
     )
 }

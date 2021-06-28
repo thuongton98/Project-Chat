@@ -5,7 +5,7 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 function Home(){
    
-    
+   
     var checkref = useRef('')
     var messref = useRef('')
     const [username,setusername] = useState('')
@@ -17,37 +17,32 @@ function Home(){
     const [socket,setsocket]=useState(null)
     const [style,setstyle] = useState('')
     const [room,setroom] = useState('')
-    const [messroom,setmessroom] = useState('')
+   
     const [hoverok,sethoverok] = useState('')
     const [defaultz,setdefaultz] = useState('online-default')
-    
+   
     useEffect(() => {
-        const connect= io('http://localhost:5000', { transports: ['websocket', 'polling', 'flashsocket'] })
+        const connect= io('https://thuongchat.tk', { transports: ['websocket', 'polling', 'flashsocket'] })
         connect.on('getuser',data=>{setuser(data)})
-      
+        
         connect.on('join_room',data=>{
           setroom(data)
-           
-           
-        })
-        connect.on('messroom',data=>{
-            setmessroom(data)
+         
+   
            
         })
+       
         connect.on('allmess',data=>{
-            const find = data.filter(function(value){
-                return value.room_id[0] === 'global' 
-            })
            
-            
-            
-           setallmess(find)
+           
+          
+           setallmess(data)
           
         })
-       
-       
+   
        
         setsocket(connect)
+       
     }, [])
 
     function showpass(){
@@ -128,6 +123,9 @@ function Home(){
         }
     }
     function showuseronline(e){
+       
+       
+      
         if(e.length>0){
             const find = e.filter(function(value){
                 return value.name === username
@@ -172,28 +170,38 @@ function Home(){
             v
         ]
        socket.emit('room',add)
-     
+       
+      
     }
     if(room!==''){
-      
-        return(
-            <div onMouseOver={(e)=>hoverchinh(e)} onClick={(e)=>mouse(e)}>
-            <section className="chat">
-            {showuseronline(user)}
-       {showallmess(messroom)}
-      
-        <form onSubmit={(e)=>submitchatroom(e,room)}>
-          <input ref={ref=>messref=ref} onChange={(e)=>setmess(e.target.value)} type="text" placeholder="type ....." />
-          <input  onClick={(e)=>submitchatroom(e,room)} className="submit-chat" type="submit" value="Send" />
-        </form>
-      </section>
-      <footer>
-      <div className='copyright'>
-            <p>&copy; <a href='https://www.facebook.com/ton.that.thuong.98'>Thuong</a></p>
-        </div>
-      </footer>
-       </div>
-        )
+        var z = []
+        if(allmess.length>0){
+            const findmess = allmess.filter(function(value){
+                return ((value.room_id[0] === room[0]||value.room_id[0]===room[1])&&(value.room_id[1] === room[0]||value.room_id[1]===room[1]))
+            })
+            z = findmess
+        }
+        
+            return(
+                <div onMouseOver={(e)=>hoverchinh(e)} onClick={(e)=>mouse(e)}>
+                <section className="chat">
+                {showuseronline(user)}
+           {showallmess(z)}
+          
+            <form onSubmit={(e)=>submitchat(e,room)}>
+              <input ref={ref=>messref=ref} onChange={(e)=>setmess(e.target.value)} type="text" placeholder="type ....." />
+              <input  onClick={(e)=>submitchat(e,room)} className="submit-chat" type="submit" value="Send" />
+            </form>
+          </section>
+          <footer>
+          <div className='copyright'>
+                <p>&copy; <a href='https://www.facebook.com/ton.that.thuong.98'>Thuong</a></p>
+            </div>
+          </footer>
+           </div>
+            )
+        
+       
     }
     function submitchat(e,v){
         e.preventDefault();
@@ -201,39 +209,20 @@ function Home(){
         if(mess===''){
             alert('nhap mess ')
         }else{
-            const x = [username]
+        
+         
             const add ={
                 username,
                 mess,
                 room_id:v,
-               seen:x
-    
+               
             }
             socket.emit("mess",add);
-            
-            setmess('')
-        }
-    }
-    function submitchatroom(e,v){
-        e.preventDefault();
-        messref.value =''
-        if(mess===''){
-            alert('nhap mess ')
-        }else{
-            const x = [username]
            
-            const add ={
-                username,
-                mess,
-                room_id:v,
-               seen:x
-    
-            }
-            socket.emit("messroom",add);
-            
             setmess('')
         }
     }
+    
     function showallmess(e){
      
         if(e.length<1){
@@ -263,47 +252,56 @@ function Home(){
    
 
 if(ok!==''){
-  
+  console.log(user)
    if(user.length>0){
        const find = user.filter(function(value){
            return value.name === username
        })
-      
-      
-       
-       if(find.length<2){
-           return(
-            <div onMouseOver={(e)=>hoverchinh(e)} onClick={(e)=>{mouse(e)}}>
-            <section className="chat">
-        {showuseronline(user)}
-       {showallmess(allmess)}
-        <form onSubmit={(e)=>submitchat(e,'global')}>
-          <input ref={ref=>messref=ref} onChange={(e)=>setmess(e.target.value)} type="text" placeholder="type ....." />
-          <input  onClick={(e)=>submitchat(e,'global')} className="submit-chat" type="submit" value="Send" />
-        </form>
-      </section>
-      <footer>
-      <div className='copyright'>
-            <p>&copy; <a href='https://www.facebook.com/ton.that.thuong.98'>Thuong</a></p>
-        </div>
-      </footer>
-       </div>
-           )
-       }
-       else{
-        
-    
+      var z = []
+      if(allmess.length>0){
 
-        return(
-       
-            <section className="p404">
-            <h1>da co nguoi dang nhap</h1>
-            <p>vui long dang nhap lai</p>
-            <button onClick={(e)=>window.location.reload()}>Login</button>
-          </section>
-        )
+        const findmess = allmess.filter(function(value){
+            return value.room_id[0] === 'global'
+        })
+        z = findmess
+    }
+   
+        if(find.length<2){
+            return(
+             <div onMouseOver={(e)=>hoverchinh(e)} onClick={(e)=>{mouse(e)}}>
+             <section className="chat">
+         {showuseronline(user)}
+        {showallmess(z)}
+         <form onSubmit={(e)=>submitchat(e,'global')}>
+           <input ref={ref=>messref=ref} onChange={(e)=>setmess(e.target.value)} type="text" placeholder="type ....." />
+           <input  onClick={(e)=>submitchat(e,'global')} className="submit-chat" type="submit" value="Send" />
+         </form>
+       </section>
+       <footer>
+       <div className='copyright'>
+             <p>&copy; <a href='https://www.facebook.com/ton.that.thuong.98'>Thuong</a></p>
+         </div>
+       </footer>
+        </div>
+            )
+        }
+        else{
+         
+     
+ 
+         return(
         
-       }
+             <section className="p404">
+             <h1>da co nguoi dang nhap</h1>
+             <p>vui long dang nhap lai</p>
+             <button onClick={(e)=>window.location.reload()}>Login</button>
+           </section>
+         )
+         
+        }
+      
+       
+      
    }
     return(
        

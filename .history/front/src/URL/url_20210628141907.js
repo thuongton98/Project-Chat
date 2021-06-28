@@ -13,7 +13,7 @@ function URL(){
             <Route exact path='/' component={home}/>
             <Route path='/testform' component={test}/>
             <Route path='/testvideo' component={testvideo}/>
-            <Route path='/firebasechat' component={firebase}/>
+            <Route path='/firebasechat' component={firebase}
 
             <Route component={p404}/>
             

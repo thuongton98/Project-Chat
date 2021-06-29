@@ -73,7 +73,6 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     
 
-   if(video!==null){
     if ('srcObject' in video) {
         video.srcObject = stream
         video.play();
@@ -81,7 +80,6 @@ function addVideoStream(video, stream) {
         video.src = window.URL.createObjectURL(stream) // for older browsers
         video.play();
       }
-   }
    
    
 }

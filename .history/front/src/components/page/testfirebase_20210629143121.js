@@ -29,7 +29,7 @@ function Firebase(){
             setTimeout(() => {
               setalert('')
             }, 3000);
-            window.scrollTo({
+            window.location.scrollTo({
               top:0,
               left:0,
               behavior:'smooth'

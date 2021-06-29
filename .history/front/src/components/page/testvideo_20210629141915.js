@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import {useState,useRef} from 'react'
 
 const socket= io('https://thuongchat.tk', { transports: ['websocket', 'polling', 'flashsocket'] })
-const myPeer = new Peer({host:'thuongchat.tk', secure:true, port:443, path: '/peerjs/myapp'})
+const myPeer = new Peer({host:'thuongchat.tk', port:443, path: '/peerjs/myapp'})
 
 function Video(){
 
@@ -19,7 +19,7 @@ function Video(){
     
 
 navigator.mediaDevices.getUserMedia({
-    video: false,
+    video: true,
     audio: true
 }).then(stream => {
    
@@ -40,12 +40,13 @@ navigator.mediaDevices.getUserMedia({
             setclassvideo1('user')
             setclassvideo2('default')
             connectToNewUser(userId, stream)
-           
+            videoz.play()
+            videozz.play()
         })
         socket.on('user-disconnected', data=>{
            setclassvideo1('none')
            setclassvideo2('user')
-        
+           videozz.play()
         })
     
 
@@ -73,7 +74,6 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     
 
-   if(video!==null){
     if ('srcObject' in video) {
         video.srcObject = stream
         video.play();
@@ -81,7 +81,6 @@ function addVideoStream(video, stream) {
         video.src = window.URL.createObjectURL(stream) // for older browsers
         video.play();
       }
-   }
    
    
 }

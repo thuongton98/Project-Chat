@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 import {useState,useRef,useEffect} from 'react'
 import ScrollToBottom from 'react-scroll-to-bottom';
 
-const socket= io('https://thuongchat.tk', { transports: ['websocket', 'polling', 'flashsocket'] })
 function Home(){
    
    
@@ -15,7 +14,7 @@ function Home(){
     const [user,setuser] = useState('')
     const [mess,setmess] = useState('')
     const [allmess,setallmess] = useState('')
-   
+    const [socket,setsocket]=useState(null)
     const [style,setstyle] = useState('')
     const [room,setroom] = useState('')
    
@@ -23,17 +22,17 @@ function Home(){
     const [defaultz,setdefaultz] = useState('online-default')
    
     useEffect(() => {
+        const connect= io('https://thuongchat.tk', { transports: ['websocket', 'polling', 'flashsocket'] })
+        connect.on('getuser',data=>{setuser(data)})
         
-        socket.on('getuser',data=>{setuser(data)})
-        
-        socket.on('join_room',data=>{
+        connect.on('join_room',data=>{
           setroom(data)
          
    
            
         })
        
-        socket.on('allmess',data=>{
+        connect.on('allmess',data=>{
            
            
           
@@ -42,7 +41,7 @@ function Home(){
         })
    
        
-     
+        setsocket(connect)
        
     }, [])
 

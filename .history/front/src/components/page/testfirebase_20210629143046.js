@@ -29,7 +29,7 @@ function Firebase(){
             setTimeout(() => {
               setalert('')
             }, 3000);
-            window.scrollTo({
+            window.location.scrollTo({
               top:0,
               left:0,
               behavior:'smooth'
@@ -103,8 +103,7 @@ function showallmess(e){
 }
     if(firstname!==''){
         return(
-            <div>
-              <section className="chat">
+            <section className="chat">
             <h1>Test Firebase Chat</h1>
             <div className='mess'>{alert}</div>
              {showallmess(allmess)}
@@ -115,12 +114,6 @@ function showallmess(e){
             </form>
             
           </section>
-           <footer>
-           <div className='copyright'>
-                 <p>&copy; <a href='https://www.facebook.com/ton.that.thuong.98'>Thuong</a></p>
-             </div>
-           </footer>
-            </div>
         )
     }
     return(

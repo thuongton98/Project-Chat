@@ -40,12 +40,13 @@ navigator.mediaDevices.getUserMedia({
             setclassvideo1('user')
             setclassvideo2('default')
             connectToNewUser(userId, stream)
-           
+            videoz.play()
+            videozz.play()
         })
         socket.on('user-disconnected', data=>{
            setclassvideo1('none')
            setclassvideo2('user')
-        
+           videozz.play()
         })
     
 
@@ -73,7 +74,6 @@ function connectToNewUser(userId, stream) {
 function addVideoStream(video, stream) {
     
 
-   if(video!==null){
     if ('srcObject' in video) {
         video.srcObject = stream
         video.play();
@@ -81,7 +81,6 @@ function addVideoStream(video, stream) {
         video.src = window.URL.createObjectURL(stream) // for older browsers
         video.play();
       }
-   }
    
    
 }

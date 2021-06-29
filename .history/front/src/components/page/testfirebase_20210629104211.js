@@ -78,7 +78,7 @@ function showallmess(e){
                      <div key={index}>{value.user}: {value.mess}</div>
                  )
              })}
-           
+           <
          </ScrollToBottom>
         ) 
  }
@@ -93,7 +93,7 @@ function showallmess(e){
              {showallmess(allmess)}
             <form onSubmit={(e)=>submit(e)}>
             
-             <input ref={ref=>inputref=ref} onChange={(e)=>addmess(e.target.value)} name='mess' placeholder='type ....' type='text' required/>
+             <input ref={ref=>inputref=ref} onChange={(e)=>addmess(e.target.value)} name='mess' type='text' required/>
              <input className='input-chat' onClick={(e)=>submit(e)} type = 'submit'/>
             </form>
             
@@ -101,7 +101,7 @@ function showallmess(e){
         )
     }
     return(
-        <section className="login">
+        <section className="p404">
         <h1>Test Firebase Chat</h1>
          <Formik
        initialValues={{ firstName: '' }}
@@ -117,18 +117,14 @@ function showallmess(e){
        }}
      >
        <Form>
-       
-       <div className='login-i'>
-       <label htmlFor="firstName">Name</label>
+         <label htmlFor="firstName">First Name</label>
          <Field name="firstName" type="text" />
          <ErrorMessage name="firstName" />
  
-       </div>
-       
  
          
  
-         <button className='submit' type="submit">Submit</button>
+         <button type="submit">Submit</button>
        </Form>
      </Formik>
       </section>

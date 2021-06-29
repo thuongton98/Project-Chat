@@ -118,12 +118,10 @@ function showallmess(e){
      >
        <Form>
        
-       <div className='login-i'>
-       <label htmlFor="firstName">Name</label>
+        <label htmlFor="firstName">First Name</label>
          <Field name="firstName" type="text" />
          <ErrorMessage name="firstName" />
  
-       </div>
        
  
          

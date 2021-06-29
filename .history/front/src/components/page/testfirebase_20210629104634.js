@@ -101,7 +101,7 @@ function showallmess(e){
         )
     }
     return(
-        <section className="login">
+        <section className="p404">
         <h1>Test Firebase Chat</h1>
          <Formik
        initialValues={{ firstName: '' }}
@@ -116,14 +116,12 @@ function showallmess(e){
         setfirstname(values.firstName)
        }}
      >
-       <Form>
+       <Form className='login'>
        
-       <div className='login-i'>
-       <label htmlFor="firstName">Name</label>
+        <label htmlFor="firstName">First Name</label>
          <Field name="firstName" type="text" />
          <ErrorMessage name="firstName" />
  
-       </div>
        
  
          

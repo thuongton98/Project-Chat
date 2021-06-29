@@ -47,7 +47,7 @@ navigator.mediaDevices.getUserMedia({
         })
         socket.on('user-disconnected', data=>{
            setclassvideo1('none')
-           setclassvideo2('user')
+           setclassvideo2('defalut')
            videozz.play()
         })
     

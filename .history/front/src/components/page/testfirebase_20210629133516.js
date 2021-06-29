@@ -25,7 +25,7 @@ function Firebase(){
 
         e.preventDefault();
         if(mess===''){
-            setalert('vui long nhap messsenger !!!!')
+            setalert('nhap mess')
             setTimeout(() => {
               setalert('')
             }, 3000);
@@ -79,7 +79,7 @@ function showallmess(e){
     )
  }else{
      return(
-         <ScrollToBottom className="chat-i">
+         <ScrollToBottom  className="chat-i">
              
             
              {e.map((value,index)=>{
@@ -105,7 +105,6 @@ function showallmess(e){
         return(
             <section className="chat">
             <h1>Test Firebase Chat</h1>
-            <div className='mess'>{alert}</div>
              {showallmess(allmess)}
             <form onSubmit={(e)=>submit(e)}>
             

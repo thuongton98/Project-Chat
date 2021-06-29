@@ -244,15 +244,9 @@ footer{
 }
 
 .mess{
-  position: absolute;
-  color:#fff;
+  color:red;
   font-size: 20px;
   text-align: center;
-  background-color: red;
+  border:1px solid red;
   width: 20%;
-  margin:0 auto;
-  top:40px;
-  left:50%;
-  transform: translateX(-50%);
 }
-

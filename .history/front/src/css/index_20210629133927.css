@@ -244,15 +244,15 @@ footer{
 }
 
 .mess{
-  position: absolute;
   color:#fff;
   font-size: 20px;
   text-align: center;
   background-color: red;
   width: 20%;
   margin:0 auto;
-  top:40px;
-  left:50%;
-  transform: translateX(-50%);
 }
 
+
+.chat-firebase{
+  margin-top:50px
+}

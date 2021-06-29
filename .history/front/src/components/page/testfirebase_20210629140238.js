@@ -79,7 +79,7 @@ function showallmess(e){
     )
  }else{
      return(
-         <ScrollToBottom className="chat-i">
+         <ScrollToBottom  className="chat-i">
              
             
              {e.map((value,index)=>{

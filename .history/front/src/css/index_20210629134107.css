@@ -251,8 +251,5 @@ footer{
   background-color: red;
   width: 20%;
   margin:0 auto;
-  top:40px;
-  left:50%;
-  transform: translateX(-50%);
 }
 

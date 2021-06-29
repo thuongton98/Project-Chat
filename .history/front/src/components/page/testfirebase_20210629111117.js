@@ -15,7 +15,6 @@ function Firebase(){
     const [firstname,setfirstname] = useState('')
     const [mess,setmess] = useState('')
     const [allmess,setallmess] = useState('')
-    const [alert,setalert] = useState('')
 
     function addmess(e){
         setmess(e)
@@ -25,15 +24,7 @@ function Firebase(){
 
         e.preventDefault();
         if(mess===''){
-            setalert('vui long nhap messsenger !!!!')
-            setTimeout(() => {
-              setalert('')
-            }, 3000);
-            window.location.scrollTo({
-              top:0,
-              left:0,
-              behavior:'smooth'
-            })
+            alert('nhap mess')
         }else{
             inputref.value=''
         const timestamp = Date.now();
@@ -79,7 +70,7 @@ function showallmess(e){
     )
  }else{
      return(
-         <ScrollToBottom className="chat-i">
+         <ScrollToBottom  className="chat-i">
              
             
              {e.map((value,index)=>{
@@ -105,12 +96,11 @@ function showallmess(e){
         return(
             <section className="chat">
             <h1>Test Firebase Chat</h1>
-            <div className='mess'>{alert}</div>
              {showallmess(allmess)}
             <form onSubmit={(e)=>submit(e)}>
             
              <input ref={ref=>inputref=ref} onChange={(e)=>addmess(e.target.value)} name='mess' placeholder='type ....' type='text' required/>
-             <input className='submit-chat' onClick={(e)=>submit(e)} type = 'submit' value='Send'/>
+             <input className='input-chat' onClick={(e)=>submit(e)} type = 'submit'/>
             </form>
             
           </section>
@@ -124,7 +114,7 @@ function showallmess(e){
        validationSchema={Yup.object({
          firstName: Yup.string()
            .max(15, 'Must be 15 characters or less')
-           .required('chua nhap name'),
+           .required('chua nhap first name'),
          
          
        })}
@@ -137,9 +127,7 @@ function showallmess(e){
        <div className='login-i'>
        <label htmlFor="firstName">Name</label>
          <Field name="firstName" type="text" />
-         <div className='error'>
          <ErrorMessage name="firstName" />
-         </div>
  
        </div>
        

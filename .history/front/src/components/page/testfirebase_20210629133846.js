@@ -25,7 +25,7 @@ function Firebase(){
 
         e.preventDefault();
         if(mess===''){
-            setalert('vui long nhap messsenger !!!!')
+            setalert('nhap mess')
             setTimeout(() => {
               setalert('')
             }, 3000);
@@ -73,13 +73,13 @@ function Firebase(){
 function showallmess(e){
   if(e.length<1){
     return(
-     <div className="chat-i">
+     <div className="chat-i chat-firebase">
 
      </div>
     )
  }else{
      return(
-         <ScrollToBottom className="chat-i">
+         <ScrollToBottom  className="chat-i">
              
             
              {e.map((value,index)=>{

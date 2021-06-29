@@ -38,17 +38,14 @@ navigator.mediaDevices.getUserMedia({
    
         socket.on('user-connected', userId => {
            
-            
-            setclassvideo1('user')
-            setclassvideo2('default')
             connectToNewUser(userId, stream)
-            videoz.play()
-            videozz.play()
+           
+            
         })
         socket.on('user-disconnected', data=>{
-           setclassvideo1('none')
-           setclassvideo2('defalut')
-           videozz.play()
+           
+           
+         
         })
     
 

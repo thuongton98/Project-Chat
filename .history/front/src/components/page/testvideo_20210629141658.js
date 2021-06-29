@@ -4,8 +4,6 @@ import io from 'socket.io-client';
 import {useState,useRef,useEffect} from 'react'
 
 const socket= io('https://thuongchat.tk', { transports: ['websocket', 'polling', 'flashsocket'] })
-const myPeer = new Peer({host:'thuongchat.tk', port:443, path: '/peerjs/myapp'})
-
 function Video(){
 
     
@@ -17,7 +15,7 @@ function Video(){
 
    
     
-
+const myPeer = new Peer({host:'thuongchat.tk', port:443, path: '/peerjs/myapp'})
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true

@@ -9,7 +9,7 @@ const myPeer = new Peer({host:'thuongchat.tk', secure:true, port:443, path: '/pe
 
 function Video(){
 
-    //change room id
+    
     let  ROOM_ID='123123'
     var videoz = useRef('')
     var videozz=useRef('')
@@ -21,12 +21,8 @@ useEffect(()=>{
         videozz.className='video user'
        
     })
-   
-    socket.on('onroom', data => {
-       if(data.length>1){
-        videoz.className='video default'
-        videozz.className='video user'
-       }
+    socket.on('check', data => {
+       console.log(data)
     })
  
 },[])
@@ -68,11 +64,8 @@ navigator.mediaDevices.getUserMedia({
 
 myPeer.on('open', id => {
 const data = {
-    //change room id
   ROOM_ID,
-  id,
-  // change name
-  name:'thuong'
+  id
 }
     if(socket!==''){
         socket.emit('join-room',data)
@@ -109,8 +102,8 @@ function addVideoStream(video, stream) {
         <h1>test video</h1>
        
        
-        <video className='video user' autoPlay playsInline ref={ref=>videoz=ref} ></video>
-        <video className='video none' autoPlay playsInline ref={ref=>videozz=ref}></video>
+        <video className={'video user'} autoPlay playsInline ref={ref=>videoz=ref} ></video>
+        <video className={'video none'} autoPlay playsInline ref={ref=>videozz=ref}></video>
        
       </section>
     )

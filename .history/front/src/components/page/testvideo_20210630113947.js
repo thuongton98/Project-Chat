@@ -109,8 +109,8 @@ function addVideoStream(video, stream) {
         <h1>test video</h1>
        
        
-        <video className='video user' autoPlay playsInline ref={ref=>videoz=ref} ></video>
-        <video className='video none' autoPlay playsInline ref={ref=>videozz=ref}></video>
+        <video className={'video user'} autoPlay playsInline ref={ref=>videoz=ref} ></video>
+        <video className={'video none'} autoPlay playsInline ref={ref=>videozz=ref}></video>
        
       </section>
     )

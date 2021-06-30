@@ -93,9 +93,7 @@ io.on("connection", function (socket) {
     socket.emit('onroom',rooms)
 
     socket.broadcast.emit('user-connected', data.id)
-    socket.on('accept',(data)=>{
-      socket.emit('accept',data)
-    })
+  
    
     socket.on('disconnect', () => {
         socket.broadcast.emit('user-disconnected', data.id)

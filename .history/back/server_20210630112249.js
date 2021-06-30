@@ -90,24 +90,15 @@ io.on("connection", function (socket) {
     socket.join(data.ROOM_ID)
     const room = addRoom({id:data.id,name:data.name})
 
-    socket.emit('onroom',rooms)
-
+    
     socket.broadcast.emit('user-connected', data.id)
     socket.on('accept',(data)=>{
       socket.emit('accept',data)
     })
-   
+    socket.emit('check',data.ROOM_ID)
     socket.on('disconnect', () => {
         socket.broadcast.emit('user-disconnected', data.id)
-        if(rooms.length>0){
-          for(let i=0;i<rooms.length;i++){
-            if(rooms[i].id===data.id){
-              rooms.splice(i,1)
-              io.emit('onroom',rooms)
-            }
-          }
-       
-        }
+
     })
    
 })

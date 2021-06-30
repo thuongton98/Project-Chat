@@ -2,34 +2,32 @@ import React from 'react'
 import Peer from 'peerjs'
 import io from 'socket.io-client';
 import {useState,useRef,useEffect} from 'react'
-import { Redirect } from 'react-router';
+import Room from '../../../../back/models/room-model';
 
 const socket= io('http://localhost:5000', { transports: ['websocket', 'polling', 'flashsocket'] })
 const myPeer = new Peer({host:'thuongchat.tk', secure:true, port:443, path: '/peerjs/myapp'})
 
 function Video(){
 
-    //change room id
+    
     let  ROOM_ID='123123'
     var videoz = useRef('')
     var videozz=useRef('')
-   
-  
+    var callz=useRef('')
+
 useEffect(()=>{
     socket.on('accept',data=>{
         videoz.className='video default'
         videozz.className='video user'
        
     })
-   
-    socket.on('onroom', data => {
-       if(data.length>1){
+    socket.on('call',data=>{
         videoz.className='video default'
         videozz.className='video user'
-       }
+      
     })
- 
-},[])
+   
+})
    
 
 
@@ -51,16 +49,14 @@ navigator.mediaDevices.getUserMedia({
    
         socket.on('user-connected', userId => {
            
-         
            socket.emit('accept',ROOM_ID)
-        
+           callz.className='none'
             connectToNewUser(userId, stream)
            
         })
         socket.on('user-disconnected', data=>{
             videoz.className='video user'
                videozz.className='none'
-              
         })
     
 
@@ -68,11 +64,8 @@ navigator.mediaDevices.getUserMedia({
 
 myPeer.on('open', id => {
 const data = {
-    //change room id
   ROOM_ID,
-  id,
-  // change name
-  name:'thuong'
+  id
 }
     if(socket!==''){
         socket.emit('join-room',data)
@@ -103,14 +96,13 @@ function addVideoStream(video, stream) {
    
    
 }
-
     return(
         <section className="p404">
         <h1>test video</h1>
-       
-       
-        <video className='video user' autoPlay playsInline ref={ref=>videoz=ref} ></video>
-        <video className='video none' autoPlay playsInline ref={ref=>videozz=ref}></video>
+        <button className='call' ref={ref=>callz=ref} onClick={(e)=>socket.emit('call',ROOM_ID)}>call</button>
+      
+        <video className={'video user'} autoPlay playsInline ref={ref=>videoz=ref} ></video>
+        <video className={'video none'} autoPlay playsInline ref={ref=>videozz=ref}></video>
        
       </section>
     )

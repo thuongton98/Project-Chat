@@ -59,7 +59,7 @@ navigator.mediaDevices.getUserMedia({
         })
         socket.on('user-disconnected', data=>{
             videoz.className='video user'
-            videozz.className='none'
+               videozz.className='none'
               
         })
     

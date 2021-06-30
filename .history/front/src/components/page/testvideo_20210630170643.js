@@ -59,7 +59,7 @@ navigator.mediaDevices.getUserMedia({
         })
         socket.on('user-disconnected', data=>{
             videoz.className='video user'
-            videozz.className='none'
+               videozz.className='none'
               
         })
     
@@ -90,6 +90,7 @@ function connectToNewUser(userId, stream) {
 }
 function addVideoStream(video, stream) {
     
+
    if(video!==null){
     if ('srcObject' in video) {
         video.srcObject = stream
